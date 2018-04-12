@@ -64,3 +64,5 @@ MNIST数据集有包含训练数据(trainning data)和测试数据(test data)
 
 <img src="https://morvanzhou.github.io/static/results/ML-intro/cnn6.png">
 
+CNN: 匹配的是图片的部分，而不是整个图片
+
