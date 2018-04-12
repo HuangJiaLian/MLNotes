@@ -66,3 +66,19 @@ MNIST数据集有包含训练数据(trainning data)和测试数据(test data)
 
 CNN: 匹配的是图片的部分，而不是整个图片
 
+为什么要使用CNN: 简化网络的复杂度。
+
+为什么可以去掉一些参数，为什么可以简化：
+
+对于识别一种pattern,其实不需要整幅图片。
+
+CNN做的就是缩小数据:
+
+
+
+一个CNN网络中有一组Filter(kernel,patch),这些**Filter不是人去设计的，而是去训练的**。 
+
+CNN中的卷积是简单的**内积**运算。
+
+一个Filter可以得到一张**Feature Map**
+
