@@ -64,3 +64,16 @@ MNIST数据集有包含训练数据(trainning data)和测试数据(test data)
 
 <img src="https://morvanzhou.github.io/static/results/ML-intro/cnn6.png">
 
+patch/kernel 有用到一个参数叫做STRIDE:每次跨多少个像素点
+
+抽离信息的方式叫做PADDING
+
+- valid padding (裁剪一点点)
+- same padding(和原来一样大)
+
+POOLING
+
+- maxima pooling 
+
+- average pooling
+ 
