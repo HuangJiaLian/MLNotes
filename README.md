@@ -76,7 +76,7 @@ POOLING
 - maxima pooling 
 
 - average pooling
- 
+
 CNN: 匹配的是图片的部分，而不是整个图片
 
 为什么要使用CNN: 简化网络的复杂度。
