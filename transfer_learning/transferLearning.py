@@ -6,6 +6,7 @@ import skimage.io
 import skimage.transform
 import matplotlib.pyplot as plt
 
+# 下载文件
 def download():     # download tiger and kittycat image
     categories = ['tiger', 'kittycat']
     for category in categories:
@@ -20,6 +21,7 @@ def download():     # download tiger and kittycat image
                 except:
                     print('%s %i/%i' % (category, i, n_urls), 'no image')
 
+# 返回一张固定大小的图片
 def load_img(path):
     img = skimage.io.imread(path)
     img = img / 255.0
@@ -33,6 +35,7 @@ def load_img(path):
     resized_img = skimage.transform.resize(crop_img, (224, 224))[None, :, :, :]   # shape [1, 224, 224, 3]
     return resized_img
 
+# 自己制作训练数据
 def load_data():
     imgs = {'tiger': [], 'kittycat': []}
     for k in imgs.keys():
@@ -61,8 +64,10 @@ class Vgg16:
             self.data_dict = np.load(vgg16_npy_path, encoding='latin1').item()
         except FileNotFoundError:
             print('Please download VGG16 parameters from here https://mega.nz/#!YU1FWJrA!O1ywiCS2IiOlUCtCpI6HTJOMrneN-Qdv3ywQP5poecM\nOr from my Baidu Cloud: https://pan.baidu.com/s/1Spps1Wy0bvrQHH2IMkRfpg')
-
+        
+        # 输入是图片
         self.tfx = tf.placeholder(tf.float32, [None, 224, 224, 3])
+        # 输出是一个表示长度的数字
         self.tfy = tf.placeholder(tf.float32, [None, 1])
 
         # Convert RGB to BGR
@@ -101,6 +106,7 @@ class Vgg16:
         # detach original VGG fc layers and
         # reconstruct your own fc layers serve for your own purpose
         self.flatten = tf.reshape(pool5, [-1, 7*7*512])
+        # tf.reset_default_graph()
         self.fc6 = tf.layers.dense(self.flatten, 256, tf.nn.relu, name='fc6')
         self.out = tf.layers.dense(self.fc6, 1, name='out')
 
@@ -161,9 +167,9 @@ def train():
     vgg = Vgg16(vgg16_npy_path='./for_transfer_learning/vgg16.npy')
     print('Net built')
     ## 只用搭建100步 这是非常好的啊 
-    for i in range(10):
+    for i in range(500):
         # 一个batch的数量是6个
-        b_idx = np.random.randint(0, len(xs), 6)
+        b_idx = np.random.randint(0, len(xs), 50)
         train_loss = vgg.train(xs[b_idx], ys[b_idx])
         print(i, 'train loss: ', train_loss)
 
@@ -183,4 +189,4 @@ def eval():
 if __name__ == '__main__':
     # download()
     train()
-    eval()
+    # eval()
